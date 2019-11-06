@@ -6,7 +6,7 @@ This repository will store code snippets used to illustrate, demonstrate and be 
 
 ----
 
-_PS: Any feedback is HIGHLY appreciated <3_
+_PS: Any feedback is HIGHLY appreciated ❤️_
 
 ##### Email me:
 > @idev.aymen@gmail.com
