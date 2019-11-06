@@ -4,4 +4,4 @@ Check out the book in the form of a [Google Document](https://docs.google.com/do
 
 This repository will store code snippets used to illustrate, demonstrate and be of example to the concepts in the book.
 
-_PS: Any feedback is HIGHLY appreciated <3_
+_PS: Any feedback is HIGHLY appreciated <3 ; Email me @idev.aymen@gmail.com ; Slack @42SiliconValley.slack @AKharrou me or Whatsapp me (if you know me)_
