@@ -154,20 +154,20 @@ char_flagID_pair_t	char2flagID_table[] =
 # define char2flagID_table_LOWER_ALPHABET_OFFSET  (10)
 # define char2flagID_table_UPPER_ALPHABET_OFFSET  (36)
 
-# define flagID_index(c)                                                     \
-                                                                             \
-	(                                                                        \
-		ISALNUM(c) ?                                                         \
-			                                                                 \
-			(ISALPHA(c) ?                                                    \
-			                                                                 \
-				(ISLOWER(c) ?                                                \
-					c - 'a' + char2bitID_table_LOWER_ALPHABET_OFFSET :       \
-					c - 'A' + char2bitID_table_UPPER_ALPHABET_OFFSET)        \
-			                                                                 \
-				: c - '0')                                                   \
-			                                                                 \
-			: char2bitID_table_SIZE - 1                                      \
+# define flagID_index(c)                                                                      \
+                                                                                              \
+	(                                                                                     \
+		ISALNUM(c) ?                                                                  \
+                                                                                              \
+			(ISALPHA(c) ?                                                         \
+                                                                                              \
+				(ISLOWER(c) ?                                                 \
+					c - 'a' + char2bitID_table_LOWER_ALPHABET_OFFSET :    \
+					c - 'A' + char2bitID_table_UPPER_ALPHABET_OFFSET)     \
+                                                                                              \
+				: c - '0')                                                    \
+                                                                                              \
+			: char2bitID_table_SIZE - 1                                           \
 	)
 
 # define flagID(c) (char2bitID_table[flagID_index(c)].flag)
@@ -176,14 +176,14 @@ char_flagID_pair_t	char2flagID_table[] =
 
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-	if (arg && *arg++ == '-')
-		while (*arg)
-			flags.set |= flagID(*arg++);
+	if (arg && arg[0] == '-')
+		while (*(++arg))
+			flags.set |= flagID(*arg);
 
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-	if (arg && *arg++ == '-')
-		while (*arg)
+	if (arg && arg[0] == '-')
+		while (*(++arg))
 			for (int i = 0; i < char2bitID_table[i].character; ++i)
 				if (*arg == char2bitID_table[i].character)
 					flags.set |= char2bitID_table[i].flag;
