@@ -47,9 +47,10 @@ int	store_flags(bitset_t *flags, const char **args)
 		while (args[i][j])
 		{
 			if (PROGRAM_FLAGS(args[i][j]))
-				flags->set |= flagID(args[i][j++]);
+				flags->set |= flagID(args[i][j]);
 			else
 				// error handling
+			++j;
 		}
 		++i;
 	}
