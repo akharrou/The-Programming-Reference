@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bitset.c                                           :+:      :+:    :+:   */
+/*   bitset.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 11:27:24 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/06 14:59:42 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:24:43 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,30 @@
 # include <stdint.h>
 # include <limits.h>
 
-# include "Libft/Includes/ctypes_42.h"
+/*
+** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+**  Needed Macro(s).
+*/
+
+# ifndef ISDIGIT
+#  define ISDIGIT(c) (c >= '0' && c <= '9')
+# endif
+
+# ifndef ISLOWER
+#  define ISLOWER(c) (c >= 'a' && c <= 'z')
+# endif
+
+# ifndef ISUPPER
+#  define ISUPPER(c) (c >= 'A' && c <= 'Z')
+# endif
+
+# ifndef ISALPHA
+#  define ISALPHA(c) (ISUPPER(c) || ISLOWER(c))
+# endif
+
+# ifndef ISALNUM
+#  define ISALNUM(c) (ISALPHA(c) || ISDIGIT(c))
+# endif
 
 /*
 ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
@@ -30,6 +53,9 @@
 
 # define ON  (1)
 # define OFF (0)
+
+# define TOGGLE(flag)              (flag ~= flag)
+# define TOGGLES(flagset, flagIDs) (flagset ^= flagIDs)
 
 /*
 ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
@@ -162,17 +188,17 @@ char_flagID_pair_t	char2flagID_table[] =
 			(ISALPHA(c) ?                                                         \
                                                                                               \
 				(ISLOWER(c) ?                                                 \
-					c - 'a' + char2bitID_table_LOWER_ALPHABET_OFFSET :    \
-					c - 'A' + char2bitID_table_UPPER_ALPHABET_OFFSET)     \
+					c - 'a' + char2flagID_table_LOWER_ALPHABET_OFFSET :   \
+					c - 'A' + char2flagID_table_UPPER_ALPHABET_OFFSET)    \
                                                                                               \
 				: c - '0')                                                    \
                                                                                               \
 			: char2bitID_table_SIZE - 1                                           \
 	)
 
-# define flagID(c) (char2bitID_table[flagID_index(c)].flag)
+# define flagID(c) (char2flagID_table[flagID_index(c)].flag)
 
-/* EXAMPLE USAGE :: `char2bitID_table` and `flagID(c)`:
+/* EXAMPLE USAGE :: `char2flagID_table` and `flagID(c)`:
 
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -184,9 +210,9 @@ char_flagID_pair_t	char2flagID_table[] =
 
 	if (arg && arg[0] == '-')
 		while (*(++arg))
-			for (int i = 0; i < char2bitID_table[i].character; ++i)
-				if (*arg == char2bitID_table[i].character)
-					flags.set |= char2bitID_table[i].flag;
+			for (int i = 0; i < char2flagID_table[i].character; ++i)
+				if (*arg == char2flagID_table[i].character)
+					flags.set |= char2flagID_table[i].flag;
 
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
