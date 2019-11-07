@@ -127,7 +127,7 @@ int	main(int ac, const char *av[])
 /* Store all flags from the command line. */
 int	store_flags(bitset_t *flags, const char **args)
 {
-	if (!flags)
+	if (!flags || !args)
 		return (0);
 
 	size_t i;
