@@ -44,7 +44,7 @@ enum e_program_flags
 	*/
 
 	z_flag = (1 << 25),
-	A_flag = (1 << 25)
+	A_flag = (1 << 26)
 
     /* ... */
 };
