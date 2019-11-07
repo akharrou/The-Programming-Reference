@@ -62,7 +62,7 @@
 **  Bitset of N bits, where N = sizeof(uintmax_t) * 8; whose bits are
 **  addressable by name.
 **
-**  Each bit is now accessible by a unique identifier.
+**  Each bit is accessible by a unique bitfield identifier.
 */
 
 # define BITSET_LENGTH (sizeof(uintmax_t) * CHAR_BIT)
