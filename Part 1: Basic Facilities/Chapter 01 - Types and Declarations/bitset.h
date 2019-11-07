@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 11:27:24 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/06 17:24:43 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/06 23:58:59 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
 
 /*
 ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
-**  Bitset of N bits, where N = sizeof(uintmax_t) * 8; whose bits are
+**  Bitset of N bits, where N = sizeof(uintmax_t) * CHAR_BIT, whose bits are
 **  addressable by name.
 **
 **  Each bit is accessible by a unique bitfield identifier.
@@ -98,9 +98,9 @@ typedef union u_bitset
 
 /*
 **  Values identifying each bit, in a set of N bits, where
-**  N = sizeof(uintmax_t) * 8.
+**  N = sizeof(uintmax_t) * CHAR_BIT.
 **
-**  This is to offer the flexibility of identifying, accessing and turning
+**  This is to offer the flexibility for identifying, accessing and turning
 **  on/off each bit in the more traditional way which is by and'ing (`&`)
 **  and or'ing (`|`) the integer (the `set` field) with a value that
 **  represents/isolates/identifies a single distinct bit.
