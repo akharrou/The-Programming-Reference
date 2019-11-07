@@ -73,10 +73,10 @@ int	main(int ac, const char *av[])
 	/* CHECK FOR FLAGS */
 
 	if (flag.a)
-		// pass
+		// do something
 
 	if (flag.W || flag.P || flag._1)
-		// pass
+		// do something
 
 
 	/* ============================================== */
@@ -116,10 +116,10 @@ int	main(int ac, const char *av[])
 	/* CHECK FOR FLAGS */
 
 	if (flag.set & a_flag)
-		// pass
+		// do something
 
 	if (flag.set & (W_flag | P_flag | _1_flag))
-		// pass
+		// do something
 
 
 	/* ============================================== */
