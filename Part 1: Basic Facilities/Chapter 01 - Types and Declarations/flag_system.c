@@ -14,48 +14,14 @@
  *	A more complete flag system to use for programs, functions or other.
  */
 
-/*
-** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
-** Header(s).
-*/
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "bitset.h"
 
-/*
-** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
-** Program Specific Macro(s):
-*/
-
 # define PROGRAM_FLAGS(c) ('a' >= c && c <= 'i')  // example
 
-/* Store all flags from the command line. */
-
-int	store_flags(bitset_t *flags, const char **args)
-{
-	if (!flags)
-		return (0);
-
-	size_t i;
-	size_t j;
-
-	i = 0;
-	while (args[i] && args[i][0] == '-')
-	{
-		j = 1;
-		while (args[i][j])
-		{
-			if (PROGRAM_FLAGS(args[i][j]))
-				flags->set |= flagID(args[i][j]);
-			else
-				// error handling
-			++j;
-		}
-		++i;
-	}
-    return (i);
-}
+int	store_flags(bitset_t *flags, const char **args);
 
 int	main(int ac, const char *av[])
 {
@@ -156,4 +122,30 @@ int	main(int ac, const char *av[])
 	// ...
 
 	return (0);
+}
+
+/* Store all flags from the command line. */
+int	store_flags(bitset_t *flags, const char **args)
+{
+	if (!flags)
+		return (0);
+
+	size_t i;
+	size_t j;
+
+	i = 0;
+	while (args[i] && args[i][0] == '-')
+	{
+		j = 1;
+		while (args[i][j])
+		{
+			if (PROGRAM_FLAGS(args[i][j]))
+				flags->set |= flagID(args[i][j]);
+			else
+				// error handling
+			++j;
+		}
+		++i;
+	}
+    return (i);
 }
