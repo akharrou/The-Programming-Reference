@@ -40,7 +40,7 @@ int main(void)
 */
 
 /*
- * Compiled with: clang++ -std=c++2a
+ * Compiled with: clang++ -std=c++2a -w
  *
  * Compiler:
  * Apple LLVM version 9.1.0 (clang-902.0.39.1)
