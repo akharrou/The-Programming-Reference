@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 11:27:24 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/06 23:58:59 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/08 12:44:11 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,13 @@
 # define ON  (1)
 # define OFF (0)
 
-# define TOGGLE(flag)              (flag ~= flag)
+# define TOGGLE(flag)              (flag = ~flag)
 # define TOGGLES(flagset, flagIDs) (flagset ^= flagIDs)
 
 /*
 ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
 **  Bitset of N bits, where N = sizeof(uintmax_t) * CHAR_BIT, whose bits are
-**  addressable by name.
-**
-**  Each bit is accessible by a unique bitfield identifier.
+**  accessible by a unique bitfield identifier.
 */
 
 # define BITSET_LENGTH (sizeof(uintmax_t) * CHAR_BIT)
@@ -100,14 +98,17 @@ typedef union u_bitset
 **  Values identifying each bit, in a set of N bits, where
 **  N = sizeof(uintmax_t) * CHAR_BIT.
 **
-**  This is to offer the flexibility for identifying, accessing and turning
-**  on/off each bit in the more traditional way which is by and'ing (`&`)
-**  and or'ing (`|`) the integer (the `set` field) with a value that
-**  represents/isolates/identifies a single distinct bit.
+**  This is another way of of identifying and accessing single distinct
+**  bits.
+**
+**  It is done by and'ing (`&`) the integer holding the bit set with
+**  a value that is represented by a single particular bit.
 */
 
 enum e_flagID
 {
+	null_flag,
+
 	a_flag = (1UL << 0),   b_flag = (1UL << 1),   c_flag = (1UL << 2),
 	d_flag = (1UL << 3),   e_flag = (1UL << 4),   f_flag = (1UL << 5),
 	g_flag = (1UL << 6),   h_flag = (1UL << 7),   i_flag = (1UL << 8),
@@ -167,34 +168,34 @@ char_flagID_pair_t	char2flagID_table[] =
 	{ 'U', U_flag }, { 'V', V_flag }, { 'W', W_flag }, { 'X', X_flag }, { 'Y', Y_flag },
 	{ 'Z', Z_flag },
 
-	{ '\0', 0 }
+	{ '\0', null_flag }
 };
 
 /*
 ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
 **  Macro to index straight into the table at the index corresponding
-**  to the character's flag (ID).
+**  to the character.
 */
 
 # define char2flagID_table_SIZE                   (sizeof(char2flagID_table) / sizeof(char_flagID_pair_t))
 # define char2flagID_table_LOWER_ALPHABET_OFFSET  (10)
 # define char2flagID_table_UPPER_ALPHABET_OFFSET  (36)
 
-# define flagID_index(c)                                                                      \
-                                                                                              \
-	(                                                                                     \
-		ISALNUM(c) ?                                                                  \
-                                                                                              \
-			(ISALPHA(c) ?                                                         \
-                                                                                              \
-				(ISLOWER(c) ?                                                 \
-					c - 'a' + char2flagID_table_LOWER_ALPHABET_OFFSET :   \
-					c - 'A' + char2flagID_table_UPPER_ALPHABET_OFFSET)    \
-                                                                                              \
-				: c - '0')                                                    \
-                                                                                              \
-			: char2bitID_table_SIZE - 1                                           \
-	)
+# define flagID_index(c)                                                  \
+                                                                          \
+    (                                                                     \
+        ISALNUM(c) ?                                                      \
+                                                                          \
+            (ISALPHA(c) ?                                                 \
+                                                                          \
+                (ISLOWER(c) ?                                             \
+                    c - 'a' + char2flagID_table_LOWER_ALPHABET_OFFSET :   \
+                    c - 'A' + char2flagID_table_UPPER_ALPHABET_OFFSET)    \
+                                                                          \
+                : c - '0')                                                \
+                                                                          \
+            : char2flagID_table_SIZE - 1                                  \
+    )
 
 # define flagID(c) (char2flagID_table[flagID_index(c)].flag)
 
@@ -213,9 +214,6 @@ char_flagID_pair_t	char2flagID_table[] =
 			for (int i = 0; i < char2flagID_table[i].character; ++i)
 				if (*arg == char2flagID_table[i].character)
 					flags.set |= char2flagID_table[i].flag;
-
-	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 */
 
 /*

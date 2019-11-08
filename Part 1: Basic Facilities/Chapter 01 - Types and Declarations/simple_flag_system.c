@@ -6,18 +6,21 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 11:17:02 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/06 15:57:17 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/08 12:18:11 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Demonstration:
- * A simple flag system for programs that can also be used for functions.
+/*  Demonstration:
+ *      A simple flag system for programs that can also be used for functions.
  */
 
 
-/* PROGRAM HEADER = = = = = = = = = = = = = = = = = = = = = = */
+
+/* PROGRAM HEADER = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
 #include <stdint.h>
+#include "readbits.h"
+
 
 /* Alias a 32 bit integer type to an identifier that communicates intent and
 meaning better for the case we want to use it */
@@ -50,34 +53,54 @@ enum e_program_flags
 };
 
 
-# define DEFAULT_FLAGS (a_flag | d_flag) /* ... or just 0, meaning no initial flags */
 
 
-
-/* PROGRAM SOURCE = = = = = = = = = = = = = = = = = = = = = = */
+/* PROGRAM SOURCE = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
 // #include "<flag header>.h"
 
-int	main(int ac, char **av)
+int	main(void)
 {
     bitset_t flags;
+    char *tmp;
 
-    flags = DEFAULT_FLAGS;
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
-    // ...
+    flags = 0;
+    tmp = readbits_32bit(flags, BIG_ENDIAN | O_SPACED);
+    printf("Bitset: %s\n", tmp);
+    free(tmp);
+
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
     /* Turns on a flag, else does nothing if already on */
     flags |= a_flag;
     flags |= b_flag;
 
+    tmp = readbits_32bit(flags, BIG_ENDIAN | O_SPACED);
+    printf("Bitset: %s\n", tmp);
+    free(tmp);
+
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
+
     /* Check to see if some flag is on by and'ing (`&`) it with the value the bit represents */
-    if (flags & d_flag)
-        // do something
+    if (flags & a_flag)
+        flags |= d_flag;
+
+    tmp = readbits_32bit(flags, BIG_ENDIAN | O_SPACED);
+    printf("Bitset: %s\n", tmp);
+    free(tmp);
+
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
     /* Toggle a flag ; off if it is on and vice versa */
     flags ^= b_flag;
 
-    // ...
+    tmp = readbits_32bit(flags, BIG_ENDIAN | O_SPACED);
+    printf("Bitset: %s\n", tmp);
+    free(tmp);
+
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
     return (0);
 }
