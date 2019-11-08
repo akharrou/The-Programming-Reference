@@ -2,6 +2,7 @@
 a
 .a
 .o
-.dSYM
+.dSYM/
 .vscode
-a.out
+.out
+a.dSYM/
