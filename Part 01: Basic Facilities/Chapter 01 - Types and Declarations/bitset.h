@@ -101,8 +101,9 @@ typedef union u_bitset
 **  This is another way of of identifying and accessing single distinct
 **  bits.
 **
-**  It is done by and'ing (`&`) the integer holding the bit set with
-**  a value that is represented by a single particular bit.
+**  It is done by and'ing (`&`) the bit set with a value that is represented
+**  the one single particular bit that one is trying to access. The values
+**  that are represented by one single bit are defined below.
 */
 
 enum e_flagID
