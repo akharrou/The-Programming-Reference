@@ -121,8 +121,8 @@ int	main(int ac, const char *av[])
 
 
 	/* ============================================== */
-		DO_SOMETHING
-
+	/* UNSET FLAGS */
+	
 	flags.a = OFF;
 	flags.o = flags._5 = flags.R = OFF;
 
