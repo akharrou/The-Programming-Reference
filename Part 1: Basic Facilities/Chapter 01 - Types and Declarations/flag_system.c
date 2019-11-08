@@ -72,7 +72,7 @@ int	store_flags(bitset_t *flags, const char **args)
 			if (PROGRAM_FLAGS(args[i][j]))
 				flags->set |= flagID(args[i][j]);
 			else
-				EXAMPLE_ERROR_HANDLING(args[i][j]);  // example error handling
+				EXAMPLE_ERROR_HANDLING(args[i][j]);  // this is just an example of error handling
 			++j;
 		}
 		++i;
