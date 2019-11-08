@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 11:17:02 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/08 12:18:11 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/08 12:49:30 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
  */
 
 
+/* TO BE IGNORED = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
+
+#define PRINT_FLAGS(flag) {                              \
+    tmp = readbits_32bit(flags, BIG_ENDIAN | O_SPACED);  \
+    printf("Bitset: %s\n", tmp);                         \
+    free(tmp);                                           \
+}
 
 /* PROGRAM HEADER = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
@@ -67,9 +74,8 @@ int	main(void)
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
     flags = 0;
-    tmp = readbits_32bit(flags, BIG_ENDIAN | O_SPACED);
-    printf("Bitset: %s\n", tmp);
-    free(tmp);
+
+    PRINT_FLAGS(flags)
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
@@ -77,9 +83,7 @@ int	main(void)
     flags |= a_flag;
     flags |= b_flag;
 
-    tmp = readbits_32bit(flags, BIG_ENDIAN | O_SPACED);
-    printf("Bitset: %s\n", tmp);
-    free(tmp);
+    PRINT_FLAGS(flags)
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
@@ -87,20 +91,33 @@ int	main(void)
     if (flags & a_flag)
         flags |= d_flag;
 
-    tmp = readbits_32bit(flags, BIG_ENDIAN | O_SPACED);
-    printf("Bitset: %s\n", tmp);
-    free(tmp);
+    PRINT_FLAGS(flags)
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
     /* Toggle a flag ; off if it is on and vice versa */
     flags ^= b_flag;
 
-    tmp = readbits_32bit(flags, BIG_ENDIAN | O_SPACED);
-    printf("Bitset: %s\n", tmp);
-    free(tmp);
+    PRINT_FLAGS(flags)
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  */
 
     return (0);
 }
+
+/* Output:
+Bitset: 00000000 00000000 00000000 00000000
+Bitset: 00000000 00000000 00000000 00000011
+Bitset: 00000000 00000000 00000000 00001011
+Bitset: 00000000 00000000 00000000 00001001
+*/
+
+/*
+ * Compiled with: clang -std=c11
+ * Files: simgple_flag_system.c readbits.c
+ *
+ * Compiler:
+ * Apple LLVM version 9.1.0 (clang-902.0.39.1)
+ * Target: x86_64-apple-darwin17.4.0
+ * Thread model: posix
+ * */
