@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 15:53:11 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/08 12:43:50 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/08 12:59:25 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@
 #include "readbits.h"
 
 #define DO_SOMETHING (void)0;
+
+#define EXAMPLE_ERROR_HANDLING(c)                       \
+    {                                                   \
+        printf("error: '%c' illegal option\n", c);      \
+        printf("usage: ./<program> [-abcdefghi]\n");    \
+        exit(1);                                        \
+    }
 
 #define PRINT_FLAGS(flags)                                                                          \
     {                                                                                               \
@@ -41,7 +48,7 @@
 #include <stdlib.h>
 #include "bitset.h"
 
-#define PROGRAM_FLAGS(c) ('a' >= c && c <= 'i') // example
+#define PROGRAM_FLAGS(c) ('a' <= c && c <= 'i') // example
 
 
 /*
@@ -65,7 +72,7 @@ int	store_flags(bitset_t *flags, const char **args)
 			if (PROGRAM_FLAGS(args[i][j]))
 				flags->set |= flagID(args[i][j]);
 			else
-				DO_SOMETHING;  // error handling
+				EXAMPLE_ERROR_HANDLING(args[i][j]);  // example error handling
 			++j;
 		}
 		++i;
