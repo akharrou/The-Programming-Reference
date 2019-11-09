@@ -12,13 +12,13 @@ int main(void)
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-	( 6.32f + 7.3if );   // literal of type:  _Complex float
-	( 6.32  + 7.3i  );   // literal of type:  _Complex double
-	( 6.32L + 7.3il );   // literal of type:  _Complex long double
-
 	( 7.3if );           // complex literal of value:  ( 0.0 + 7.3if )
 	( 7.3i  );           // complex literal of value:  ( 0.0 + 7.3i  )
 	( 7.3il );           // complex literal of value:  ( 0.0 + 7.3il )
+
+	( 6.32f + 7.3if );   // literal of type:  _Complex float
+	( 6.32  + 7.3i  );   // literal of type:  _Complex double
+	( 6.32L + 7.3il );   // literal of type:  _Complex long double
 
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
