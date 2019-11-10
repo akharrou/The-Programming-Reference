@@ -1,7 +1,7 @@
 
 /*
 **  (C++) Demonstration:
-**      Solution that `nullptr_t` provides.
+**      Problem #1 that `nullptr_t` solves.
 */
 
 #include <iostream>
@@ -14,12 +14,11 @@ int main(void)
 {
     f(0);
     f(nullptr);
+    // f(NULL);  // would be ambiguous without if NULL is passed
+                 // ambiguous call: all two functions are candidates
+                 // ambiguous if NULL is an integral null pointer constant
+                 // (as is the case in most implementations)
 }
-
-/* Output:
-int
-void *
-*/
 
 /* Compiled with: clang++ -std=c++2a
  *
