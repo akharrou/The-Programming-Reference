@@ -13,7 +13,7 @@ void f(int)     { cout << "int"     << endl; }
 int main(void)
 {
     f(NULL); /* nullptr_type_problem.cpp:15:5: error: call to 'f' is ambiguous
-                    f(NULL); /* nullptr_type_problem.cpp:16:5: error: call to 'f' is ambiguous
+                    f(NULL);    nullptr_type_problem.cpp:16:5: error: call to 'f' is ambiguous
                     ^
                 nullptr_type_problem.cpp:10:6: note: candidate function
                 void f(void *)  { cout << "void *"  << endl; }
