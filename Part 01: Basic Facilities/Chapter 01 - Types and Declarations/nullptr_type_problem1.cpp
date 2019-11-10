@@ -14,7 +14,7 @@ int main(void)
 {
     f(0);
     f(nullptr);
-    // f(NULL);  // would be ambiguous without if NULL is passed
+    // f(NULL);  // would be ambiguous if NULL is passed
                  // ambiguous call: all two functions are candidates
                  // ambiguous if NULL is an integral null pointer constant
                  // (as is the case in most implementations)
