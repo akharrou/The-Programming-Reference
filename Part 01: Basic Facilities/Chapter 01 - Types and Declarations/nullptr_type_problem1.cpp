@@ -20,6 +20,11 @@ int main(void)
                  // (as is the case in most implementations)
 }
 
+/* Output:
+int
+void *
+*/
+
 /* Compiled with: clang++ -std=c++2a
  *
  * Version:
