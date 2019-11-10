@@ -1,7 +1,7 @@
 
 /*
 **  (C++) Demonstration:
-**      Problem that `nullptr_t` solves.
+**      Problem with `NULL` that `nullptr_t` solves.
 */
 
 #include <iostream>
@@ -32,4 +32,3 @@ int main(void)
  * Target: x86_64-apple-darwin17.4.0
  * Thread model: posix
  */
-
