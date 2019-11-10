@@ -26,6 +26,12 @@ int main()
                  // (as is the case in most implementations)
 }
 
+/* Output:
+int * overload
+double * overload
+nullptr_t overload
+*/
+
 /* Compiled with: clang++ -std=c++2a -w
  *
  * Version:
