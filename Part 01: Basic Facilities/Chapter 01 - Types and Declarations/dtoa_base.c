@@ -97,7 +97,7 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 			ft_utoa_base( flt.mantissa | IEEE_754_DOUBLE_IMPLICIT_BIT , DECIMAL_BASE, 0);
 
 	/* Add number of times we must shift (to the right) the mantissa bits
-	   in order to correct the representation (see 2nd comment below for
+	   in order to correct the representation; (see 2nd comment below for
 	   detailed explanation */
 	exp = flt.exponent - IEEE_754_DOUBLE_MANTISSA_BITS;
 
