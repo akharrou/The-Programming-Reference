@@ -99,7 +99,7 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 	/* Add number of times we must shift (to the right) the mantissa bits */
 	exp = flt.exponent - IEEE_754_DOUBLE_MANTISSA_BITS;
 
-	/* Shift Mantissa Bits to Correct Positions & Multiply/Divide with 2^{ +/- X } */
+	/* Shift Mantissa Bits to Correct Positions & Multiply/Divide with 2^{ exp } */
 	if (exp > 0)
 		while (exp-- > 0)
 			result = bigint_mulfre(result, 2, base, 1);
