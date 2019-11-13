@@ -12,17 +12,24 @@
 
 /*
 **    NAME
-**         ft_dtoa_base -- stringify floating-point type values
+**         ftoa_base, dtoa_base, ldtoa_base -- stringify floating-point type
+**                                             values
 **
 **    SYNOPSIS
 **         #include <libft.h>
 **
 **         char *
-**         ft_dtoa_base(double data, char *base, int width, int precision);
+**         ftoa_base(float data, char *base, int width, int precision);
+**
+**         char *
+**         dtoa_base(double data, char *base, int width, int precision);
+**
+**         char *
+**         ldtoa_base(long double data, char *base, int width, int precision);
 **
 **    PARAMETERS
 **
-**         T data              Floating-point (`l` or `r`) value.
+**         T data              Floating-point value (lvalue or rvalue).
 **
 **         char *base          Desired base in which to represent
 **                             the value.
