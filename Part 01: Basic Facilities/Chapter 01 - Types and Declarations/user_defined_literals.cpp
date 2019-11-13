@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 08:21:25 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/11 08:51:44 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:22:12 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ struct Distance
 
         long double _kilometers { 0 };
 
-        explicit Distance(long double val) : _kilometers( val ) {}
+        explicit Distance( long double val ) : _kilometers( val ) {}
 
         friend Distance operator"" _km( long double val );
         friend Distance operator"" _mi( long double val );
@@ -51,10 +51,10 @@ struct Distance
 ostream & operator<< ( ostream & out, const Distance & in )
     { out << in.kilometers() << " km"; return (out); }
 
-Distance operator"" _km(long double val)
+Distance operator"" _km( long double val )
     { return Distance( val ); }
 
-Distance operator"" _mi(long double val)
+Distance operator"" _mi( long double val )
     { return Distance( val * 1.6 ); }
 
 /*
