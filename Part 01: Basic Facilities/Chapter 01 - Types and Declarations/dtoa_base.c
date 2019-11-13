@@ -158,9 +158,9 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 	representing 2^-1, 2^-2, 2^-3, ... so you have to create a custom
 	type that can do that encoding.
 
-	Once the type is implemented go ahead and convert the the mantissa
-	held in the integer into the custom type and shift the value by
-	the amount of mantissa bits; this can be done by multiplying the
+	Once the type is implemented, we can go ahead and convert the mantissa
+	held in the integer to that custom type and shift the value by
+	the amount of mantissa bits there; this can be done by multiplying the
 	number by 2^{-mantissa_bits}; or incrementally dividing the number
 	by 2 as many as 'mantissa_bits' times.
 
