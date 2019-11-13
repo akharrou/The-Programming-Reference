@@ -159,7 +159,7 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 	type that can do that encoding.
 
 	Once the type is implemented, we can go ahead and convert the mantissa
-	held in the integer to that custom type and shift the value by
+	held in the integer into that custom type and shift the value by
 	the amount of mantissa bits there; this can be done by multiplying the
 	number by 2^{-mantissa_bits}; or incrementally dividing the number
 	by 2 as many as 'mantissa_bits' times.
