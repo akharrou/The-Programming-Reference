@@ -88,8 +88,9 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 		flt.exponent = flt.exponent - IEEE_754_DOUBLE_BIAS;
 	}
 
-	/* Convert the Mantissa into the `bigint` Type */
-	/* or `|` the implicit bit with the mantissa if necessary */
+	/* Convert the Mantissa into the `bigint` Type and
+	   or `|` the implicit bit with the mantissa if
+	   we are dealing with a Normalized Real. */
 	result =
 		IEEE_754_DOUBLE_SUBNORMALS(flt.exponent, flt.mantissa) ?
 			ft_utoa_base( flt.mantissa | 0                            , DECIMAL_BASE, 0) :
