@@ -41,9 +41,11 @@
 **                             default to 6.
 **
 **    DESCRIPTION
-**         Stringifies the value of a floating-point type in the given
-**         `base` to the given `precision` to a minimum width of the
-**         given `width` (padding with the rest).
+**         Converts a floating-point value to a string. In addition the
+**         value is converted to the given `base` and brought-to to the
+**         given `precision`. The minimum length of the string shall be
+**         `width`; if the string representation of the value is smaller
+**         than `width`, the string is prepended with '0's.
 **
 **    RETURN VALUES
 **         Returns a null-terminated string representing the floating-point
