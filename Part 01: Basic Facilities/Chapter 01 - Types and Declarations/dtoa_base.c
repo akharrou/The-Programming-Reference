@@ -6,14 +6,13 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:07:44 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/05 23:45:09 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:11:42 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
 **    NAME
-**         ftoa_base, dtoa_base, ldtoa_base -- stringify floating-point type
-**                                             values
+**         ftoa_base, dtoa_base, ldtoa_base -- convert floating-point type values to strings
 **
 **    SYNOPSIS
 **         #include <libft.h>
@@ -42,94 +41,127 @@
 **
 **    DESCRIPTION
 **         Stringifies the value of a floating-point type in the given
-**         `base` with the given `precision` in the desired `width`.
+**         `base` to the given `precision` to a minimum width of the
+**         given `width` (padding with the rest).
 **
 **    RETURN VALUES
 **         Returns a null-terminated string representing the floating-point
 **         value ; or NULL on error.
 */
 
-#include "Libft/Includes/bigint.h"
-#include "Libft/Includes/stdlib_42.h"
-#include "Libft/Includes/string_42.h"
+/*
+** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+**  Header(s).
+*/
+
+#include "../../Libft/Includes/bigint.h"
+#include "../../Libft/Includes/stdlib_42.h"
+#include "../../Libft/Includes/string_42.h"
 
 #include "IEEE_754_types.h"
 
-char	*ft_dtoa_base(double data, char *base, int width, int precision)
-{
-	IEEE_754_double flt;
-	t_bigint result;
-	int32_t exp;
+/*
+** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+** Function Template -- Floating-Point Value to String .
+*/
 
-	/* Extract Bits Representing the Floating-point Value */
-	flt.value = data;
-
-	/* Case #1: Zero */
-	if IEEE_754_DOUBLE_ZERO(flt.exponent, flt.mantissa)
-	{
-		result = ft_strdup("0");
+#define make_Ttoa_base(abrv_T, floatingpoint_T, IEEE_T, allcaps_IEEE_T)                                 \
+                                                                                                        \
+	char * abrv_T##toa_base(floatingpoint_T data, char *base, int width, int precision)                 \
+	{                                                                                                   \
+		IEEE_T flt;                                                                                     \
+		t_bigint result;                                                                                \
+                                                                                                        \
+		/* Extract Bits Representing the Floating-point Value */                                        \
+		flt.value = data;                                                                               \
+                                                                                                        \
+		/* Case #1: Zero */                                                                             \
+		if allcaps_IEEE_T##_ZERO(flt.exponent, flt.mantissa)                                            \
+		{                                                                                               \
+			result = ft_strdup("0");                                                                    \
+		}                                                                                               \
+                                                                                                        \
+		/* Case #2: Infinity */                                                                         \
+		else if allcaps_IEEE_T##_INF(flt.exponent, flt.mantissa)                                        \
+		{                                                                                               \
+			return (flt.sign ? ft_strdup("-inf") : ft_strdup("+inf"));                                  \
+		}                                                                                               \
+                                                                                                        \
+		/* Case #3: NaN */                                                                              \
+		else if allcaps_IEEE_T##_NAN(flt.exponent, flt.mantissa)                                        \
+		{                                                                                               \
+			/* This can be simplified to just return "nan" */                                           \
+			return (flt.mantissa & (1L << (allcaps_IEEE_T##_MANTISSA_BITS - 1)) ?                       \
+				ft_strdup("QNaN") : ft_strdup("SNaN"));                                                 \
+		}                                                                                               \
+                                                                                                        \
+		/* Case #4: Denormalized (Subnormal) */                                                         \
+		else if allcaps_IEEE_T##_SUBNORMALS(flt.exponent, flt.mantissa)                                 \
+		{                                                                                               \
+			flt.exponent = - allcaps_IEEE_T##_BIAS + 1;                                                 \
+		}                                                                                               \
+                                                                                                        \
+		/* Case #5: Normalized (Normal) */                                                              \
+		else                                                                                            \
+		{                                                                                               \
+			flt.exponent = flt.exponent - allcaps_IEEE_T##_BIAS;                                        \
+		}                                                                                               \
+                                                                                                        \
+		/* Convert the Mantissa into the `bigint` Type and */                                           \
+		/* or `|` the implicit bit with the mantissa if */                                              \
+		/* we are dealing with a Normalized Real */                                                     \
+		result =                                                                                        \
+			allcaps_IEEE_T##_SUBNORMALS(flt.exponent, flt.mantissa) ?                                   \
+				ft_utoa_base( flt.mantissa | 0                             , DECIMAL_BASE, 0) :         \
+				ft_utoa_base( flt.mantissa | allcaps_IEEE_T##_IMPLICIT_BIT , DECIMAL_BASE, 0);          \
+                                                                                                        \
+		/* Add number of times we must shift (to the right) the mantissa bits */                        \
+		/* in order to correct the representation; (see 2nd comment below for */                        \
+		/* detailed explanation */                                                                      \
+		int32_t exp = flt.exponent - allcaps_IEEE_T##_MANTISSA_BITS;                                    \
+                                                                                                        \
+		/* Shift Mantissa Bits to Correct Positions & Multiply/Divide with 2^{ exp } */                 \
+		if (exp > 0)                                                                                    \
+			while (exp-- > 0)                                                                           \
+				result = bigint_mulfre(result, 2, base, 1);                                             \
+		else                                                                                            \
+			while (exp++ < 0)                                                                           \
+				result = bigint_divfre(result, 2, base, 1);                                             \
+                                                                                                        \
+		/* Round to desired Precision */                                                                \
+		result = bigint_roundfre(result, base, ((precision >= 0) ? precision : 6), 1);                  \
+                                                                                                        \
+		/* Pad to desired Total Width */                                                                \
+		result = ft_strprepend(result, ft_padding(flt.sign + width - ft_strlen(result), '0'), 1, 1);    \
+                                                                                                        \
+		/* Prepend Sign (if needed) */                                                                  \
+		if (flt.sign)                                                                                   \
+			result = ft_strprepend(result, "-", 1, 0);                                                  \
+                                                                                                        \
+		return (result);                                                                                \
 	}
-
-	/* Case #2: Infinity */
-	else if IEEE_754_DOUBLE_INF(flt.exponent, flt.mantissa)
-	{
-		return (flt.sign ? ft_strdup("-inf") : ft_strdup("+inf"));
-	}
-
-	/* Case #3: NaN */
-	else if IEEE_754_DOUBLE_NAN(flt.exponent, flt.mantissa)
-	{
-		return (flt.mantissa & (1L << (IEEE_754_DOUBLE_MANTISSA_BITS - 1)) ?
-			ft_strdup("QNaN") : ft_strdup("SNaN"));
-	}
-
-	/* Case #4: Denormalized (Subnormal) */
-	else if IEEE_754_DOUBLE_SUBNORMALS(flt.exponent, flt.mantissa)
-	{
-		flt.exponent = -IEEE_754_DOUBLE_BIAS + 1;
-	}
-
-	/* Case #5: Normalized (Normal) */
-	else
-	{
-		flt.exponent = flt.exponent - IEEE_754_DOUBLE_BIAS;
-	}
-
-	/* Convert the Mantissa into the `bigint` Type and
-	   or `|` the implicit bit with the mantissa if
-	   we are dealing with a Normalized Real. */
-	result =
-		IEEE_754_DOUBLE_SUBNORMALS(flt.exponent, flt.mantissa) ?
-			ft_utoa_base( flt.mantissa | 0                            , DECIMAL_BASE, 0) :
-			ft_utoa_base( flt.mantissa | IEEE_754_DOUBLE_IMPLICIT_BIT , DECIMAL_BASE, 0);
-
-	/* Add number of times we must shift (to the right) the mantissa bits
-	   in order to correct the representation; (see 2nd comment below for
-	   detailed explanation */
-	exp = flt.exponent - IEEE_754_DOUBLE_MANTISSA_BITS;
-
-	/* Shift Mantissa Bits to Correct Positions & Multiply/Divide with 2^{ exp } */
-	if (exp > 0)
-		while (exp-- > 0)
-			result = bigint_mulfre(result, 2, base, 1);
-	else
-		while (exp++ < 0)
-			result = bigint_divfre(result, 2, base, 1);
-
-	/* Round to desired Precision */
-	result = bigint_roundfre(result, base, ((precision >= 0) ? precision : 6), 1);
-
-	/* Pad to desired Total Width */
-	result = ft_strprepend(result, ft_padding(flt.sign + width - ft_strlen(result), '0'), 1, 1);
-
-	/* Prepend Sign (if needed) */
-	if (flt.sign)
-		result = ft_strprepend(result, "-", 1, 0);
-
-	return (result);
-}
 
 /*
+** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+*/
+
+/* These macros will expand-to/generate the source code for the
+functions specified above */
+
+/* Convert `float` data type values to strings. */
+make_Ttoa_base( f , float , IEEE_754_float , IEEE_754_FLOAT )
+
+/* Convert `double` data type values to strings. */
+make_Ttoa_base( d , double , IEEE_754_double , IEEE_754_DOUBLE )
+
+/* Convert `long double` data type values to strings. */
+#define ldouble long double
+make_Ttoa_base( ld , ldouble , IEEE_754_ldouble , IEEE_754_LDOUBLE )
+#undef ldouble
+
+/*
+** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+**
 
   COMMENT:
 
@@ -176,5 +208,69 @@ char	*ft_dtoa_base(double data, char *base, int width, int precision)
 	The exponent might be positive so the "correction right shifts" might
 	cancel out with the positive exponent, so we subtract from the exponent
 	the "correction shifts" before any calculation to save us some computation.
+
+**
+** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+**
+
+  EXAMPLE -- the `double` function expands to:
+
+	char * dtoa_base(double data, char *base, int width, int precision)
+	{
+		IEEE_754_double flt;
+		t_bigint result;
+		int32_t exp;
+
+		flt.value = data;
+
+		if IEEE_754_DOUBLE_ZERO(flt.exponent, flt.mantissa)
+		{
+			result = ft_strdup("0");
+		}
+
+		else if IEEE_754_DOUBLE_INF(flt.exponent, flt.mantissa)
+		{
+			return (flt.sign ? ft_strdup("-inf") : ft_strdup("+inf"));
+		}
+
+		else if IEEE_754_DOUBLE_NAN(flt.exponent, flt.mantissa)
+		{
+			return (flt.mantissa & (1L << (IEEE_754_DOUBLE_MANTISSA_BITS - 1)) ?
+				ft_strdup("QNaN") : ft_strdup("SNaN"));
+		}
+
+		else if IEEE_754_DOUBLE_SUBNORMALS(flt.exponent, flt.mantissa)
+		{
+			flt.exponent = -IEEE_754_DOUBLE_BIAS + 1;
+		}
+
+		else
+		{
+			flt.exponent = flt.exponent - IEEE_754_DOUBLE_BIAS;
+		}
+
+		result =
+			IEEE_754_DOUBLE_SUBNORMALS(flt.exponent, flt.mantissa) ?
+				ft_utoa_base( flt.mantissa | 0                            , DECIMAL_BASE, 0) :
+				ft_utoa_base( flt.mantissa | IEEE_754_DOUBLE_IMPLICIT_BIT , DECIMAL_BASE, 0);
+
+		exp = flt.exponent - IEEE_754_DOUBLE_MANTISSA_BITS;
+
+		if (exp > 0)
+			while (exp-- > 0)
+				result = bigint_mulfre(result, 2, base, 1);
+		else
+			while (exp++ < 0)
+				result = bigint_divfre(result, 2, base, 1);
+
+		result = bigint_roundfre(result, base, ((precision >= 0) ? precision : 6), 1);
+
+		result = ft_strprepend(result, ft_padding(flt.sign + width - ft_strlen(result), '0'), 1, 1);
+
+		if (flt.sign)
+			result = ft_strprepend(result, "-", 1, 0);
+
+		return (result);
+	}
 
 */
