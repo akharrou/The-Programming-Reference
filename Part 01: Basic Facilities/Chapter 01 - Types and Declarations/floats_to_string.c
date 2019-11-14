@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dtoa_base.c                                        :+:      :+:    :+:   */
+/*   floats_to_string.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:07:44 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/13 19:26:28 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/13 21:49:16 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@
 **  Header(s).
 */
 
-#include "Libft/Includes/stdlib_42.h"
-#include "Libft/Includes/string_42.h"
-#include "Libft/Includes/macros_42.h"
-#include "Libft/Includes/bigint.h"
+#include "./../../Libft/Includes/stdlib_42.h"
+#include "./../../Libft/Includes/string_42.h"
+#include "./../../Libft/Includes/macros_42.h"
+#include "./../../Libft/Includes/bigint.h"
 
 #include "IEEE_754_types.h"
 
@@ -145,18 +145,20 @@
 
 /*
 ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+** The following macros expand-to/generate the source code for the functions
+** specified above.
 */
 
-/* These macros will expand-to/generate the source code for the
-functions specified above */
-
-/* Convert `float` data type values to strings. */
+/* Expands to `ftoa_base`:
+Convert `float` data type values to strings. */
 make_Ttoa_base( f , float , IEEE_754_float , IEEE_754_FLOAT )
 
-/* Convert `double` data type values to strings. */
+/* Expands to `dtoa_base`:
+Convert `double` data type values to strings. */
 make_Ttoa_base( d , double , IEEE_754_double , IEEE_754_DOUBLE )
 
-/* Convert `long double` data type values to strings. */
+/* Expands to `ldtoa_base`:
+Convert `long double` data type values to strings. */
 #define ldouble long double
 make_Ttoa_base( ld , ldouble , IEEE_754_ldouble , IEEE_754_LDOUBLE )
 #undef ldouble
@@ -276,5 +278,3 @@ make_Ttoa_base( ld , ldouble , IEEE_754_ldouble , IEEE_754_LDOUBLE )
     }
 
 */
-
-int main (void) {return 0;}

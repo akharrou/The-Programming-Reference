@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 12:41:37 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/13 17:04:51 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/13 21:45:03 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@
 		float value;
 		struct {
 			__int8_t   sign     : IEEE_754_FLOAT_SIGN_BITS;
-			__int8_t   exponent : IEEE_754_FLOAT_EXPONENT_BITS;
+			__int16_t  exponent : IEEE_754_FLOAT_EXPONENT_BITS;
 			__uint32_t mantissa : IEEE_754_FLOAT_MANTISSA_BITS;
 		};
 	} IEEE_754_float;
@@ -89,7 +89,7 @@
 		float value;
 		struct {
 			__uint32_t mantissa : IEEE_754_FLOAT_MANTISSA_BITS;
-			__int8_t   exponent : IEEE_754_FLOAT_EXPONENT_BITS;
+			__int16_t  exponent : IEEE_754_FLOAT_EXPONENT_BITS;
 			__int8_t   sign     : IEEE_754_FLOAT_SIGN_BITS;
 		};
 	} IEEE_754_float;
@@ -138,15 +138,14 @@
 **  Extended Precision (long double)  --  Standard IEEE 754 Floating-point Specification
 */
 
-# define IEEE_754_LDOUBLE_EXPLICIT_BIT  (1)
-
-# define IEEE_754_LDOUBLE_MANTISSA_BITS (63 + IEEE_754_LDOUBLE_EXPLICIT_BIT)
+# define IEEE_754_LDOUBLE_MANTISSA_BITS (63)
+# define IEEE_754_LDOUBLE_EXPLICIT_BITS (1)
 # define IEEE_754_LDOUBLE_EXPONENT_BITS (15)
 # define IEEE_754_LDOUBLE_SIGN_BITS     (1)
 
 # define IEEE_754_LDOUBLE_BIAS          ((1L << (IEEE_754_LDOUBLE_EXPONENT_BITS - 1)) - 1)  /* 2^{exponent_bits - 1} - 1 ; 16383 */
 # define IEEE_754_LDOUBLE_EXPONENT_MAX  ((1L << IEEE_754_LDOUBLE_EXPONENT_BITS) - 1)        /* 2^{exponent_bits} - 1     ; 32767 */
-# define IEEE_754_LDOUBLE_IMPLICIT_BIT  (0) /* does not have an implicit bit; it is explicitly in the memory representation */
+# define IEEE_754_LDOUBLE_IMPLICIT_BIT  ((1UL << IEEE_754_LDOUBLE_MANTISSA_BITS))
 
 # define IEEE_754_LDOUBLE_SUBNORMALS(exponent, mantissa) ((exponent == 0) && (mantissa != 0))
 # define IEEE_754_LDOUBLE_ZERO(exponent, mantissa)       ((exponent == 0) && (mantissa == 0))
@@ -159,6 +158,7 @@
 		struct {
 			__int8_t   sign     : IEEE_754_LDOUBLE_SIGN_BITS;
 			__int16_t  exponent : IEEE_754_LDOUBLE_EXPONENT_BITS;
+			__int16_t  explict  : IEEE_754_LDOUBLE_EXPLICIT_BITS;
 			__uint64_t mantissa : IEEE_754_LDOUBLE_MANTISSA_BITS;
 		};
 	} IEEE_754_ldouble;
@@ -167,6 +167,7 @@
 		long double value;
 		struct {
 			__uint64_t mantissa : IEEE_754_LDOUBLE_MANTISSA_BITS;
+			__int16_t  explict  : IEEE_754_LDOUBLE_EXPLICIT_BITS;
 			__int16_t  exponent : IEEE_754_LDOUBLE_EXPONENT_BITS;
 			__int8_t   sign     : IEEE_754_LDOUBLE_SIGN_BITS;
 		};
