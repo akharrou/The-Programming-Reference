@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 11:27:24 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/08 12:44:11 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/12/24 19:23:01 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ enum e_flagID
 	_7_flag = (1UL << 59), _8_flag = (1UL << 60), _9_flag = (1UL << 61),
 
 	none_flag    = (1UL << 62),
-	special_flag = (1UL << 63),
+	special_flag = (1UL << 63)
 };
 
 /*
