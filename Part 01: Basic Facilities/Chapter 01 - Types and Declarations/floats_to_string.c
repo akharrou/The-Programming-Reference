@@ -186,10 +186,10 @@ make_Ttoa_base( ld , ldouble , IEEE_754_ldouble , IEEE_754_LDOUBLE )
   COMMENT:
 
     In the process, we have to correct the position of the mantissa
-    bits. We do this by shifting all the bits to the right until the
-    first mantissa bit is placed at the column that represents 2^-1;
-    that would mean shifting all the bits as many times as there are
-    mantissa bits.
+    bits. We do this by shifting all the bits (implicit bit included)
+    to the right until the first mantissa bit is placed at the column
+    that represents 2^0; that would mean shifting all the bits as many
+    times as there are mantissa bits.
 
     We must do this because the computer, when extracting the bits
     from the floating-point type into the integer type, interprets

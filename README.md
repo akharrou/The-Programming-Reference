@@ -6,7 +6,7 @@ This repository will store code snippets used to illustrate, demonstrate and be 
 
 ----
 
-_PS: Any feedback is HIGHLY appreciated ❤️_
+_PS: Any feedback is HIGHLY appreciated ❤️ The Google document allows you to add your suggestion inline. Please don't hesitate to comment and/or suggest and/or correct things._
 
 ##### Email me:
 > @idev.aymen@gmail.com
