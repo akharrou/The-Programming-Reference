@@ -1,8 +1,8 @@
 
-a
-.a
-.o
-.dSYM/
-.vscode
-.out
+*a
+*.a
+*.o
+*.dSYM/
+*.vscode
+*.out
 a.dSYM/
