@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:07:44 by akharrou          #+#    #+#             */
-/*   Updated: 2019/12/24 19:24:54 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/12/24 19:25:37 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ make_Ttoa_base( ld , ldouble , IEEE_754_ldouble , IEEE_754_LDOUBLE )
 
         else if IEEE_754_DOUBLE_NAN(flt.exponent, flt.mantissa)
         {
-            return (flt.mantissa & (1L << (IEEE_754_DOUBLE_MANTISSA_BITS - 1)) ?
+            return (flt.mantissa & (1UL << (IEEE_754_DOUBLE_MANTISSA_BITS - 1)) ?
                 ft_strdup("QNaN") : ft_strdup("SNaN"));
         }
 
