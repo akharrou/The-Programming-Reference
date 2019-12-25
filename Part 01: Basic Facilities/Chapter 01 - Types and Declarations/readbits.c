@@ -40,7 +40,7 @@ char	*readbits_integral(void *integral, size_t size, int oflags)
 	char	*buf;
 	size_t	bufsize;
 	size_t	cur_idx;
-	ssize_t	i;
+	size_t	i;
 
 	bufsize = ((oflags & O_SPACED) ? size - 1 : 0) + size * CHAR_BIT + 1;
 	cur_idx = bufsize;
@@ -106,14 +106,14 @@ char	*readbits_float   ( float       data , int oflags ) { return ( readbits_IEE
 char	*readbits_double  ( double      data , int oflags ) { return ( readbits_IEEE_754_double  ( (IEEE_754_double)  { data }, oflags ) ); }
 char	*readbits_ldouble ( long double data , int oflags ) { return ( readbits_IEEE_754_ldouble ( (IEEE_754_ldouble) { data }, oflags ) ); }
 
-char	*readbits_8bit    ( __int8_t    data , int oflags ) { return ( readbits_integral ( &data, sizeof( __int8_t   ) , oflags ) ); }
-char	*readbits_16bit   ( __int16_t   data , int oflags ) { return ( readbits_integral ( &data, sizeof( __int16_t  ) , oflags ) ); }
-char	*readbits_32bit   ( __int32_t   data , int oflags ) { return ( readbits_integral ( &data, sizeof( __int32_t  ) , oflags ) ); }
-char	*readbits_64bit   ( __int64_t   data , int oflags ) { return ( readbits_integral ( &data, sizeof( __int64_t  ) , oflags ) ); }
-char	*readbits_128bit  ( __int128_t  data , int oflags ) { return ( readbits_integral ( &data, sizeof( __int128_t ) , oflags ) ); }
+char	*readbits_8bit    ( int8_t      data , int oflags ) { return ( readbits_integral ( &data, sizeof( int8_t   ) , oflags ) ); }
+char	*readbits_16bit   ( int16_t     data , int oflags ) { return ( readbits_integral ( &data, sizeof( int16_t  ) , oflags ) ); }
+char	*readbits_32bit   ( int32_t     data , int oflags ) { return ( readbits_integral ( &data, sizeof( int32_t  ) , oflags ) ); }
+char	*readbits_64bit   ( int64_t     data , int oflags ) { return ( readbits_integral ( &data, sizeof( int64_t  ) , oflags ) ); }
+// char	*readbits_128bit  ( int128_t    data , int oflags ) { return ( readbits_integral ( &data, sizeof( int128_t ) , oflags ) ); }
 
-char	*readbits_char    ( char        data , int oflags ) { return ( readbits_integral ( &data, sizeof( char       ) , oflags ) ); }
-char	*readbits_short   ( short       data , int oflags ) { return ( readbits_integral ( &data, sizeof( short      ) , oflags ) ); }
-char	*readbits_int     ( int         data , int oflags ) { return ( readbits_integral ( &data, sizeof( int        ) , oflags ) ); }
-char	*readbits_long    ( long        data , int oflags ) { return ( readbits_integral ( &data, sizeof( long       ) , oflags ) ); }
-char	*readbits_llong   ( long long   data , int oflags ) { return ( readbits_integral ( &data, sizeof( long long  ) , oflags ) ); }
+char	*readbits_char    ( char        data , int oflags ) { return ( readbits_integral ( &data, sizeof( char      ) , oflags ) ); }
+char	*readbits_short   ( short       data , int oflags ) { return ( readbits_integral ( &data, sizeof( short     ) , oflags ) ); }
+char	*readbits_int     ( int         data , int oflags ) { return ( readbits_integral ( &data, sizeof( int       ) , oflags ) ); }
+char	*readbits_long    ( long        data , int oflags ) { return ( readbits_integral ( &data, sizeof( long      ) , oflags ) ); }
+char	*readbits_llong   ( long long   data , int oflags ) { return ( readbits_integral ( &data, sizeof( long long ) , oflags ) ); }

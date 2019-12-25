@@ -23,11 +23,11 @@
 **         char * readbits_IEEE_754_double( IEEE_754_double data , int oflag );
 **         char * readbits_IEEE_754_ldouble( IEEE_754_ldouble data , int oflag );
 **
-**         char * readbits_8bit( __int8_t data , int oflags );
-**         char * readbits_16bit( __int16_t data , int oflags );
-**         char * readbits_32bit( __int32_t data , int oflags );
-**         char * readbits_64bit( __int64_t data , int oflags );
-**         char * readbits_128bit( __int128_t data , int oflags );
+**         char * readbits_8bit( int8_t data , int oflags );
+**         char * readbits_16bit( int16_t data , int oflags );
+**         char * readbits_32bit( int32_t data , int oflags );
+**         char * readbits_64bit( int64_t data , int oflags );
+**         char * readbits_128bit( int128_t data , int oflags );
 **
 **         char * readbits_char( char data , int oflags );
 **         char * readbits_short( short data , int oflags );
@@ -104,11 +104,11 @@ char	*readbits_IEEE_754_float   ( IEEE_754_float   data , int oflag );
 char	*readbits_IEEE_754_double  ( IEEE_754_double  data , int oflag );
 char	*readbits_IEEE_754_ldouble ( IEEE_754_ldouble data , int oflag );
 
-char	*readbits_8bit             ( __int8_t    data , int oflags );
-char	*readbits_16bit            ( __int16_t   data , int oflags );
-char	*readbits_32bit            ( __int32_t   data , int oflags );
-char	*readbits_64bit            ( __int64_t   data , int oflags );
-char	*readbits_128bit           ( __int128_t  data , int oflags );
+char	*readbits_8bit             ( int8_t      data , int oflags );
+char	*readbits_16bit            ( int16_t     data , int oflags );
+char	*readbits_32bit            ( int32_t     data , int oflags );
+char	*readbits_64bit            ( int64_t     data , int oflags );
+// char	*readbits_128bit           ( int128_t    data , int oflags );
 
 char	*readbits_char             ( char        data , int oflags );
 char	*readbits_short            ( short       data , int oflags );

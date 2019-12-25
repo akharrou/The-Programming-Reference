@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:07:44 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/13 22:08:46 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/14 12:26:13 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ make_Ttoa_base( f , float , IEEE_754_float , IEEE_754_FLOAT )
 
 /* Expands to `dtoa_base`:
 Convert `double` data type values to strings. */
-make_Ttoa_base( d , double , IEEE_754_double , IEEE_754_DOUBLE )
+// make_Ttoa_base( d , double , IEEE_754_double , IEEE_754_DOUBLE )
 
 /* Expands to `ldtoa_base`:
 Convert `long double` data type values to strings. */
@@ -220,12 +220,12 @@ make_Ttoa_base( ld , ldouble , IEEE_754_ldouble , IEEE_754_LDOUBLE )
 **
 
   EXAMPLE -- the `double` function expands to:
+*/
 
     char * dtoa_base(double data, char *base, int width, int precision)
     {
         IEEE_754_double flt;
         t_bigint result;
-        int32_t exp;
 
         flt.value = data;
 
@@ -260,7 +260,7 @@ make_Ttoa_base( ld , ldouble , IEEE_754_ldouble , IEEE_754_LDOUBLE )
                 ft_utoa_base( flt.mantissa | 0                            , DECIMAL_BASE, 0) :
                 ft_utoa_base( flt.mantissa | IEEE_754_DOUBLE_IMPLICIT_BIT , DECIMAL_BASE, 0);
 
-        exp = flt.exponent - IEEE_754_DOUBLE_MANTISSA_BITS;
+        int32_t exp = flt.exponent - IEEE_754_DOUBLE_MANTISSA_BITS;
 
         if (exp > 0)
             while (exp-- > 0)
@@ -279,4 +279,34 @@ make_Ttoa_base( ld , ldouble , IEEE_754_ldouble , IEEE_754_LDOUBLE )
         return (result);
     }
 
+
+
+
+/*
+** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
+** Test main.
 */
+
+#include <stdio.h>
+#include <limits.h>
+
+#define PRECISION 2
+#define     WIDTH 20
+#define     VALUE -1.23
+
+int main(void)
+{
+    printf("\nFLOAT:\n-------------------------------------------------------------------\n");
+    printf(" ftoa_base: %s\n", ftoa_base((float) VALUE, "0123456789", WIDTH, PRECISION));
+    printf("    printf: %0*.*f\n\n", WIDTH, PRECISION, (float) VALUE);
+
+    printf("\nDOUBLE:\n-------------------------------------------------------------------\n");
+    printf(" dtoa_base: %s\n", dtoa_base((double) VALUE, "0123456789", WIDTH, PRECISION));
+    printf("    printf: %0*.*f\n\n", WIDTH, PRECISION, (double) VALUE);
+
+    printf("\nLONG DOUBLE:\n-------------------------------------------------------------------\n");
+    printf("ldtoa_base: %s\n", ldtoa_base((long double) VALUE, "0123456789", WIDTH, PRECISION));
+    printf("    printf: %0*.*Lf\n\n", WIDTH, PRECISION, (long double) VALUE);
+
+    return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 12:41:37 by akharrou          #+#    #+#             */
-/*   Updated: 2019/11/13 22:05:38 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/11/14 11:53:35 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,12 @@
 **                 ----------------------------
 **                | sign | exponent | mantissa |
 **   ------------------------------------------|
-**  | +normal     |   0  |  all 0s  |  all 0s  |
-**  |------------------------------------------|
-**  | -normal     |   1  |  all 0s  |  all 0s  |
-**  |------------------------------------------|
-**  | +subnormal  |   0  |  all 0s  |   != 0   |
-**  |------------------------------------------|
-**  | -subnormal  |   1  |  all 0s  |   != 0   |
-**  |------------------------------------------|
 **  | +zero       |   0  |  all 0s  |  all 0s  |
+**  |------------------------------------------|
 **  | -zero       |   1  |  all 0s  |  all 0s  |
 **  |------------------------------------------|
 **  | +inf        |   0  |  all 1s  |  all 0s  |
+**  |------------------------------------------|
 **  | -inf        |   1  |  all 1s  |  all 0s  |
 **  |------------------------------------------|
 **  | nan -- QNaN |   /  |  all 1s  | 1X...XX  |
@@ -54,6 +48,14 @@
 **  |             |      |          |     .    |
 **  |             |      |          |     .    |
 **  |             |      |          | 01...11  |
+**  |------------------------------------------|
+**  | +subnormal  |   0  |  all 0s  |   != 0   |
+**  |------------------------------------------|
+**  | -subnormal  |   1  |  all 0s  |   != 0   |
+**  |------------------------------------------|
+**  | +normal     |   0  |  all 0s  |  all 0s  |
+**  |------------------------------------------|
+**  | -normal     |   1  |  all 0s  |  all 0s  |
 **   ------------------------------------------
 */
 
@@ -76,23 +78,23 @@
 # define IEEE_754_FLOAT_NAN(exponent, mantissa)        ((exponent == IEEE_754_FLOAT_EXPONENT_MAX) && (mantissa != 0))
 
 # if (IS_BIG_ENDIAN == 1)
-	typedef union {
-		float value;
-		struct {
-			__int8_t   sign     : IEEE_754_FLOAT_SIGN_BITS;
-			__int16_t  exponent : IEEE_754_FLOAT_EXPONENT_BITS;
-			__uint32_t mantissa : IEEE_754_FLOAT_MANTISSA_BITS;
-		};
-	} IEEE_754_float;
+    typedef union {
+        float value;
+        struct {
+            int8_t   sign     : IEEE_754_FLOAT_SIGN_BITS;
+            int16_t  exponent : IEEE_754_FLOAT_EXPONENT_BITS;
+            uint32_t mantissa : IEEE_754_FLOAT_MANTISSA_BITS;
+        };
+    } IEEE_754_float;
 # else
-	typedef union {
-		float value;
-		struct {
-			__uint32_t mantissa : IEEE_754_FLOAT_MANTISSA_BITS;
-			__int16_t  exponent : IEEE_754_FLOAT_EXPONENT_BITS;
-			__int8_t   sign     : IEEE_754_FLOAT_SIGN_BITS;
-		};
-	} IEEE_754_float;
+    typedef union {
+        float value;
+        struct {
+            uint32_t mantissa : IEEE_754_FLOAT_MANTISSA_BITS;
+            int16_t  exponent : IEEE_754_FLOAT_EXPONENT_BITS;
+            int8_t   sign     : IEEE_754_FLOAT_SIGN_BITS;
+        };
+    } IEEE_754_float;
 # endif
 
 /*
@@ -114,23 +116,23 @@
 # define IEEE_754_DOUBLE_NAN(exponent, mantissa)        ((exponent == IEEE_754_DOUBLE_EXPONENT_MAX) && (mantissa != 0))
 
 # if (IS_BIG_ENDIAN == 1)
-	typedef union {
-		double value;
-		struct {
-			__int8_t   sign     : IEEE_754_DOUBLE_SIGN_BITS;
-			__int16_t  exponent : IEEE_754_DOUBLE_EXPONENT_BITS;
-			__uint64_t mantissa : IEEE_754_DOUBLE_MANTISSA_BITS;
-		};
-	} IEEE_754_double;
+    typedef union {
+        double value;
+        struct {
+            int8_t   sign     : IEEE_754_DOUBLE_SIGN_BITS;
+            int16_t  exponent : IEEE_754_DOUBLE_EXPONENT_BITS;
+            uint64_t mantissa : IEEE_754_DOUBLE_MANTISSA_BITS;
+        };
+    } IEEE_754_double;
 # else
-	typedef union {
-		double value;
-		struct {
-			__uint64_t mantissa : IEEE_754_DOUBLE_MANTISSA_BITS;
-			__int16_t  exponent : IEEE_754_DOUBLE_EXPONENT_BITS;
-			__int8_t   sign     : IEEE_754_DOUBLE_SIGN_BITS;
-		};
-	} IEEE_754_double;
+    typedef union {
+        double value;
+        struct {
+            uint64_t mantissa : IEEE_754_DOUBLE_MANTISSA_BITS;
+            int16_t  exponent : IEEE_754_DOUBLE_EXPONENT_BITS;
+            int8_t   sign     : IEEE_754_DOUBLE_SIGN_BITS;
+        };
+    } IEEE_754_double;
 # endif
 
 /*
@@ -153,25 +155,25 @@
 # define IEEE_754_LDOUBLE_NAN(exponent, mantissa)        ((exponent == IEEE_754_LDOUBLE_EXPONENT_MAX) && (mantissa != 0))
 
 # if (IS_BIG_ENDIAN == 1)
-	typedef union {
-		long double value;
-		struct {
-			__int8_t   sign     : IEEE_754_LDOUBLE_SIGN_BITS;
-			__int16_t  exponent : IEEE_754_LDOUBLE_EXPONENT_BITS;
-			__int16_t  explict  : IEEE_754_LDOUBLE_EXPLICIT_BITS;
-			__uint64_t mantissa : IEEE_754_LDOUBLE_MANTISSA_BITS;
-		};
-	} IEEE_754_ldouble;
+    typedef union {
+        long double value;
+        struct {
+            int8_t   sign     : IEEE_754_LDOUBLE_SIGN_BITS;
+            int16_t  exponent : IEEE_754_LDOUBLE_EXPONENT_BITS;
+            int16_t  explict  : IEEE_754_LDOUBLE_EXPLICIT_BITS;
+            uint64_t mantissa : IEEE_754_LDOUBLE_MANTISSA_BITS;
+        };
+    } IEEE_754_ldouble;
 # else
-	typedef union {
-		long double value;
-		struct {
-			__uint64_t mantissa : IEEE_754_LDOUBLE_MANTISSA_BITS;
-			__int16_t  explict  : IEEE_754_LDOUBLE_EXPLICIT_BITS;
-			__int16_t  exponent : IEEE_754_LDOUBLE_EXPONENT_BITS;
-			__int8_t   sign     : IEEE_754_LDOUBLE_SIGN_BITS;
-		};
-	} IEEE_754_ldouble;
+    typedef union {
+        long double value;
+        struct {
+            uint64_t mantissa : IEEE_754_LDOUBLE_MANTISSA_BITS;
+            int16_t  explict  : IEEE_754_LDOUBLE_EXPLICIT_BITS;
+            int16_t  exponent : IEEE_754_LDOUBLE_EXPONENT_BITS;
+            int8_t   sign     : IEEE_754_LDOUBLE_SIGN_BITS;
+        };
+    } IEEE_754_ldouble;
 # endif
 
 #endif /* IEEE_754_TYPES_H */
