@@ -6,7 +6,7 @@
 /*   By: akharrou <akharrou@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 23:07:44 by akharrou          #+#    #+#             */
-/*   Updated: 2019/12/24 19:19:25 by akharrou         ###   ########.fr       */
+/*   Updated: 2019/12/24 19:24:54 by akharrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@
         else if allcaps_IEEE_754_T##_NAN(flt.exponent, flt.mantissa)                                      \
         {                                                                                                 \
             /* This can be simplified to just return "nan" */                                             \
-            return (flt.mantissa & (1L << (allcaps_IEEE_754_T##_MANTISSA_BITS - 1)) ?                     \
+            return (flt.mantissa & (1UL << (allcaps_IEEE_754_T##_MANTISSA_BITS - 1)) ?                     \
                 ft_strdup("QNaN") : ft_strdup("SNaN"));                                                   \
         }                                                                                                 \
                                                                                                           \
