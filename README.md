@@ -12,7 +12,7 @@ _PS: Any feedback is HIGHLY appreciated ❤️ The Google document allows you to
 > @idev.aymen@gmail.com
 
 ##### Slack me:
-> @42schoolsiliconvalley.slack.com @AKharrou
+> @42born2code.slack.com @AKharrou
 
 ##### Connect w/ me on Linkedin:
 > [here](https://www.linkedin.com/in/aymen-kharroubi-83a673145?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BZt07F%2BC7QHK%2BMtMg80CqBw%3D%3D)
