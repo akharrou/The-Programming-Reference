@@ -1,6 +1,6 @@
 # The Programming Reference (Book)
 
-This repository serves as storage for all code snippets used to illustrate, demonstrate and be of example to the concepts in the book. Check out the book as an [HTML Website](https://docs.google.com/document/d/e/2PACX-1vRIl_pkXRghf1LzFryOn5VfNycluCfgnOdLlFQku01IWMGAb5m2aM065mpGJ7_I-PePVwtyGrxaWCi4/pub) or as [Google Docs](https://docs.google.com/document/d/1o5Gq44C2VUEnR487WPrxhIp_KaX85VjLSg0jdpiQ4Jk/edit?usp=sharing).
+This repository serves as storage for all code snippets used in the book to illustrate, demonstrate and be of example to the concepts in the book. Check out the book as an [HTML Website](https://docs.google.com/document/d/e/2PACX-1vRIl_pkXRghf1LzFryOn5VfNycluCfgnOdLlFQku01IWMGAb5m2aM065mpGJ7_I-PePVwtyGrxaWCi4/pub) or as [Google Docs](https://docs.google.com/document/d/1o5Gq44C2VUEnR487WPrxhIp_KaX85VjLSg0jdpiQ4Jk/edit?usp=sharing).
 
 ----
 
